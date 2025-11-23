@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script> window.FontAwesomeConfig = { autoReplaceSvg: 'nest' };</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js" crossorigin="anonymous"
+        referrerpolicy="no-referrer"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .glass-card-strong {
+            background: rgba(255, 255, 255, 0.08);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        .word-item {
+            transition: all 0.3s ease;
+        }
+
+        .word-item:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateX(4px);
+        }
+
+        .word-item.selected {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.3));
+            border-left: 3px solid #8b5cf6;
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #8b5cf6, #6366f1);
+            transition: all 0.3s ease;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="min-h-screen p-8">
+    <div id="main-container" class="max-w-7xl mx-auto">
+        <header id="header" class="text-center mb-12">
+            <h1 class="text-5xl font-bold text-white mb-3">
+
+                Random Word Generator
+            </h1>
+            <p class="text-gray-400 text-lg">Generate creative combinations from three word lists</p>
+        </header>
+
+        <section id="result-section" class="mb-10">
+            <div class="glass-card-strong rounded-2xl p-8 text-center">
+                <p class="text-gray-400 text-sm uppercase tracking-wider mb-3">Generated Result</p>
+                <div id="result-display"
+                    class="text-4xl font-bold text-white min-h-[60px] flex items-center justify-center gap-4">
+                    <span id="result-word-1" class="text-purple-400">---</span>
+                    <span id="result-word-2" class="text-indigo-400">---</span>
+                    <span id="result-word-3" class="text-violet-400">---</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="word-lists-section" class="grid grid-cols-3 gap-6 mb-8">
+            <div id="column-1" class="glass-card rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle text-purple-400 text-xs"></i>
+                        Emoties
+                    </h2>
+                    <span class="text-gray-400 text-sm">20 words</span>
+                </div>
+                <div id="list-1" class="space-y-2 max-h-[500px] overflow-y-auto pr-2">
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Verwondering">Verwondering</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Angst">Angst</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Vreugde">Vreugde</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Jaloezie">Jaloezie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Rust">Rust</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Euforie">Euforie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Walging">Walging</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Nostalgie">Nostalgie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Schaamte">Schaamte</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Zelfvertrouwen">Zelfvertrouwen</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Hoop">Hoop</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Woede">Woede</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Vertedering">Vertedering</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Melancholie">Melancholie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Opluchting">Opluchting</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Trots">Trots</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Apathie">Apathie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Hunkering">Hunkering</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Irritatie">Irritatie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Liefde">Liefde</div>
+
+                </div>
+            </div>
+
+            <div id="column-2" class="glass-card rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle text-indigo-400 text-xs"></i>
+                        Natuurlijke Fenomenen
+                    </h2>
+                    <span class="text-gray-400 text-sm">20 words</span>
+                </div>
+                <div id="list-2" class="space-y-2 max-h-[500px] overflow-y-auto pr-2">
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Bliksem">Bliksem</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Aardbeving">Aardbeving</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Noorderlicht">Noorderlicht</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Zandstorm">Zandstorm</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Tsunami">Tsunami</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Mistbanken">Mistbanken</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Vulkanische eruptie">Vulkanische eruptie</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Regenboog">Regenboog</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Orkaan">Orkaan</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Waterval">Waterval</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Magnetische storm">Magnetische storm</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Getijden">Getijden</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Lawine">Lawine</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Bijenzwerm">Bijenzwerm</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Wilde bosbrand">Wilde bosbrand</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Maansverduistering">Maansverduistering</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Zeebries">Zeebries</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="IJsstalactieten">IJsstalactieten</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Donderclap">Donderclap</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Bloeiende koraalriffen">Bloeiende koraalriffen</div>
+                </div>
+            </div>
+
+            <div id="column-3" class="glass-card rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle text-violet-400 text-xs"></i>
+                        Eigenschappen
+                    </h2>
+                    <span class="text-gray-400 text-sm">20 words</span>
+                </div>
+                <div id="list-3" class="space-y-2 max-h-[500px] overflow-y-auto pr-2">
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onbreekbaar">Onbreekbaar</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Fluisterzacht">Fluisterzacht</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Chaotisch">Chaotisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Hypergevoelig">Hypergevoelig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Zelfherstellend">Zelfherstellend</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Extreem flexibel">Extreem flexibel</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Tijdloos">Tijdloos</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onzichtbaar">Onzichtbaar</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Rebellisch">Rebellisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Glitchy">Glitchy</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Supercompact">Supercompact</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Absurd efficiënt">Absurd efficiënt</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Magnetisch">Magnetisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Overdreven vriendelijk">Overdreven vriendelijk</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Dramatisch">Dramatisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Warmbloedig">Warmbloedig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Minimalistisch">Minimalistisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Dubbelzinnig">Dubbelzinnig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Traag maar standvastig">Traag maar standvastig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onvoorspelbaar">Onvoorspelbaar</div>
+
+                </div>
+            </div>
+        </section>
+
+        <section id="action-section" class="text-center">
+            <button id="generate-btn"
+                class="generate-btn text-white font-semibold px-12 py-4 rounded-xl text-lg shadow-lg">
+                <i class="fa-solid fa-shuffle mr-2"></i>
+                Generate Random Words
+            </button>
+        </section>
+    </div>
+
+    <script>
+        window.addEventListener('load', function () {
+            const generateBtn = document.getElementById('generate-btn');
+            const resultWord1 = document.getElementById('result-word-1');
+            const resultWord2 = document.getElementById('result-word-2');
+            const resultWord3 = document.getElementById('result-word-3');
+
+            const list1Items = document.querySelectorAll('#list-1 .word-item');
+            const list2Items = document.querySelectorAll('#list-2 .word-item');
+            const list3Items = document.querySelectorAll('#list-3 .word-item');
+
+            function getRandomItem(items) {
+                return items[Math.floor(Math.random() * items.length)];
+            }
+
+            function clearSelections(items) {
+                items.forEach(item => item.classList.remove('selected'));
+            }
+
+            generateBtn.addEventListener('click', function () {
+                clearSelections(list1Items);
+                clearSelections(list2Items);
+                clearSelections(list3Items);
+
+                const selected1 = getRandomItem(list1Items);
+                const selected2 = getRandomItem(list2Items);
+                const selected3 = getRandomItem(list3Items);
+
+                selected1.classList.add('selected');
+                selected2.classList.add('selected');
+                selected3.classList.add('selected');
+
+                resultWord1.textContent = selected1.dataset.word;
+                resultWord2.textContent = selected2.dataset.word;
+                resultWord3.textContent = selected3.dataset.word;
+
+                selected1.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                selected2.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                selected3.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+    </script>
+</body>
+
+</html>
