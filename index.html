@@ -13,56 +13,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        ::-webkit-scrollbar {
-            display: none;
-        }
 
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-        }
-
-        .glass-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-card-strong {
-            background: rgba(255, 255, 255, 0.08);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .word-item {
-            transition: all 0.3s ease;
-        }
-
-        .word-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-            transform: translateX(4px);
-        }
-
-        .word-item.selected {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(99, 102, 241, 0.3));
-            border-left: 3px solid #8b5cf6;
-        }
-
-        .generate-btn {
-            background: linear-gradient(135deg, #8b5cf6, #6366f1);
-            transition: all 0.3s ease;
-        }
-
-        .generate-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
-        }
     </style>
+
+    <link rel="stylesheet" href="css/main.css">
     <script>
         tailwind.config = {
             theme: {
@@ -222,59 +176,59 @@
                     <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
                         data-word="Barometer">Barometer</div>
                 </div>
-
-                <div id="column-3" class="glass-card rounded-2xl p-6">
-                    <div class="flex items-center justify-between mb-6">
-                        <h2 class="text-xl font-semibold text-white flex items-center gap-2">
-                            <i class="fa-solid fa-circle text-violet-400 text-xs"></i>
-                            Eigenschappen
-                        </h2>
-                        <span class="text-gray-400 text-sm">20 words</span>
-                    </div>
-                    <div id="list-3" class="space-y-2 max-h-[500px] overflow-y-auto pr-2">
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Onbreekbaar">Onbreekbaar</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Fluisterzacht">Fluisterzacht</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Chaotisch">Chaotisch</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Hypergevoelig">Hypergevoelig</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Zelfherstellend">Zelfherstellend</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Extreem flexibel">Extreem flexibel</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Tijdloos">Tijdloos</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Onzichtbaar">Onzichtbaar</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Rebellisch">Rebellisch</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Glitchy">Glitchy</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Supercompact">Supercompact</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Absurd efficiënt">Absurd efficiënt</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Magnetisch">Magnetisch</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Overdreven vriendelijk">Overdreven vriendelijk</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Dramatisch">Dramatisch</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Warmbloedig">Warmbloedig</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Minimalistisch">Minimalistisch</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Dubbelzinnig">Dubbelzinnig</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Traag maar standvastig">Traag maar standvastig</div>
-                        <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
-                            data-word="Onvoorspelbaar">Onvoorspelbaar</div>
-
-                    </div>
+            </div>
+            <div id="column-3" class="glass-card rounded-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white flex items-center gap-2">
+                        <i class="fa-solid fa-circle text-violet-400 text-xs"></i>
+                        Eigenschappen
+                    </h2>
+                    <span class="text-gray-400 text-sm">20 words</span>
                 </div>
+                <div id="list-3" class="space-y-2 max-h-[500px] overflow-y-auto pr-2">
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onbreekbaar">Onbreekbaar</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Fluisterzacht">Fluisterzacht</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Chaotisch">Chaotisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Hypergevoelig">Hypergevoelig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Zelfherstellend">Zelfherstellend</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Extreem flexibel">Extreem flexibel</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Tijdloos">Tijdloos</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onzichtbaar">Onzichtbaar</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Rebellisch">Rebellisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Glitchy">Glitchy</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Supercompact">Supercompact</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Absurd efficiënt">Absurd efficiënt</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Magnetisch">Magnetisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Overdreven vriendelijk">Overdreven vriendelijk</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Dramatisch">Dramatisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Warmbloedig">Warmbloedig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Minimalistisch">Minimalistisch</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Dubbelzinnig">Dubbelzinnig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Traag maar standvastig">Traag maar standvastig</div>
+                    <div class="word-item glass-card rounded-lg px-4 py-3 text-gray-200 cursor-pointer"
+                        data-word="Onvoorspelbaar">Onvoorspelbaar</div>
+
+                </div>
+            </div>
         </section>
 
 

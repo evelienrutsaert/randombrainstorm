@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Character Generator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = { theme: { extend: { fontFamily: { sans: ["Inter", "sans-serif"] } } } };
+    </script>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+
+<body class="min-h-screen p-8 text-gray-200">
+    <main class="max-w-2xl mx-auto space-y-12" aria-label="Character Generator">
+        <header class="text-center space-y-4">
+            <h1 class="text-4xl font-bold tracking-tight text-white flex items-center justify-center gap-3">
+                <span
+                    class="inline-block px-3 py-2 rounded-xl bg-gradient-to-br from-indigo-500 to-violet-600 text-sm font-semibold uppercase">GEN</span>
+                Character Generator
+            </h1>
+            <p class="text-gray-400 text-lg max-w-2xl mx-auto">Genereer een willekeurig karakter voor je creatieve
+                sessie.</p>
+            <div
+                class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-white/10 border border-white/20 backdrop-blur text-xs tracking-wider uppercase text-indigo-200">
+                <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true"></span> Live Ideation
+                Mode
+            </div>
+        </header>
+
+        <!-- Result block -->
+        <section class="glass-strong rounded-3xl p-10 text-center space-y-4" aria-label="Resultaat">
+            <p class="text-gray-400 text-sm uppercase tracking-widest">Gegenereerd Karakter</p>
+            <div id="result-display"
+                class="min-h-[72px] flex flex-wrap items-center justify-center gap-6 text-3xl font-bold"
+                aria-live="polite">
+                <span id="result-karakter" class="text-purple-400">---</span>
+            </div>
+            <div class="flex flex-wrap justify-center gap-4 pt-2">
+                <button type="button" id="generate-btn"
+                    class="generate-btn text-white font-semibold px-8 py-4 rounded-xl text-lg shadow-lg flex items-center gap-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M4 4v5h.582m0 0A7.5 7.5 0 0112 6.5v0a7.5 7.5 0 016.918 4.418M20 9V4m-.582 5H20m-7.5 4.5v0a7.5 7.5 0 01-6.918-4.418M4 15v5m.582-5H4m15.418 0H20v5" />
+                    </svg>
+                    Genereer Karakter
+                </button>
+                <button type="button" id="copy-karakter"
+                    class="copy-btn text-white font-medium px-6 py-4 rounded-xl text-base flex items-center gap-2 shadow-md">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2" aria-hidden="true">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                    </svg>
+                    Kopieer Karakter
+                </button>
+            </div>
+            <p class="text-xs text-gray-400 max-w-xl mx-auto">Tip: klik op genereren voor een nieuw karakter. Je kunt de
+                lijst hieronder aanpassen.</p>
+        </section>
+
+        <!-- List -->
+        <section class="glass rounded-2xl p-6 flex flex-col" aria-label="Karakterlijst">
+            <div class="flex items-center justify-between mb-5">
+                <h2 class="text-xl font-semibold text-white flex items-center gap-2"><span
+                        class="w-3 h-3 rounded-full bg-purple-400" aria-hidden="true"></span>Karakter Opties</h2>
+                <span id="count-karakters" class="text-gray-400 text-sm"></span>
+            </div>
+            <div id="list-karakters" class="space-y-2 max-h-[520px] overflow-y-auto pr-1" aria-label="Items karakter">
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const karakters = [
+            "Speelse Uitvinder",
+            "Chaotische Schepper",
+            "Amateur-Wetenschapper",
+            "Onhandige Tovertechnicus",
+            "Hyperactieve Ideeënmachine",
+            "Futuristisch Mysticus",
+            "Kwantum-Designer",
+            "Tijd-Architect",
+            "Posthuman Creator",
+            "Cyber-Alchemist",
+            "Rebellious Dreamer",
+            "Regeltjesbreker",
+            "Saboteur van Systemen",
+            "Anti-establishment Maker",
+            "Creatieve Anarchist",
+            "Zachte Visionair",
+            "Dromenvanger",
+            "Emotionele Ontwerper",
+            "Abstracte Bouwer",
+            "Zintuigenfluisteraar",
+            "Systeemdenker",
+            "Structuurmagiër",
+            "Patronen-Knutselaar",
+            "Logisch Tovenaar",
+            "Mechanische Dromer",
+            "Materiaalfluisteraar",
+            "Elementen-Maker",
+            "Organische Ontwerper",
+            "Eclectische Verzamelaar",
+            "Bio-Builder"
+        ];
+
+        function renderList(id, words, colorClass) {
+            const el = document.getElementById(id);
+            el.innerHTML = '';
+            words.forEach(w => {
+                const item = document.createElement('div');
+                item.className = 'word-item rounded-lg px-4 py-3 cursor-pointer flex items-center justify-between group';
+                item.dataset.word = w;
+                item.innerHTML = `<span class='text-gray-100'>${w}</span><svg class='opacity-0 group-hover:opacity-60 transition h-4 w-4 text-${colorClass}' fill='none' stroke='currentColor' stroke-width='2' viewBox='0 0 24 24'><path stroke-linecap='round' stroke-linejoin='round' d='M13 16h-1v-4h-1m1-4h.01M21 12A9 9 0 113 12a9 9 0 0118 0z'/></svg>`;
+                item.addEventListener('click', () => item.classList.toggle('selected'));
+                el.appendChild(item);
+            });
+        }
+
+        function updateCount() {
+            document.getElementById('count-karakters').textContent = `${karakters.length} opties`;
+        }
+
+        function randomPick(arr) { return arr[Math.floor(Math.random() * arr.length)]; }
+        function clearSelections() { document.querySelectorAll('.word-item.selected').forEach(el => el.classList.remove('selected')); }
+
+        function generateKarakter() {
+            clearSelections();
+            const k = randomPick(karakters);
+            document.getElementById('result-karakter').textContent = k;
+            const match = [...document.querySelectorAll('.word-item')].find(div => div.dataset.word === k);
+            if (match) { match.classList.add('selected'); match.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+        }
+
+        function copyKarakter() {
+            const k = document.getElementById('result-karakter').textContent;
+            if (k === '---') { alert('Genereer eerst een karakter.'); return; }
+            navigator.clipboard?.writeText(k).then(() => alert('Gekopieerd: ' + k)).catch(() => {
+                const ta = document.createElement('textarea'); ta.value = k; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); alert('Gekopieerd: ' + k); } catch (e) { alert('Kopiëren mislukt.'); } document.body.removeChild(ta);
+            });
+        }
+
+        // Init
+        renderList('list-karakters', karakters, 'purple-300');
+        updateCount();
+        document.getElementById('generate-btn').addEventListener('click', generateKarakter);
+        document.getElementById('copy-karakter').addEventListener('click', copyKarakter);
+    </script>
+</body>
+
+</html>
